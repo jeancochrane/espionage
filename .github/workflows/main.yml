@@ -2,7 +2,7 @@ name: Spying
 
 on:
   schedule:
-    - cron: '50 20 * * *'
+    - cron: '0 21 * * *'
 
 jobs:
   spy:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build containers and run code
-        run: docker-compose run --run puppeteer yarn start
+        run: docker-compose run --rm puppeteer yarn start
         env:
           ESPIONAGE_URLS: ${{ secrets.ESPIONAGE_URLS }}
           SES_FROM: ${{ secrets.SES_FROM }}

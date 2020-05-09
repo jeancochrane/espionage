@@ -13,7 +13,7 @@ jobs:
       - name: Set up configs
         run: echo '' > .env
       - name: Build containers and run code
-        run: docker-compose run --rm puppeteer yarn start
+        run: docker-compose run --rm -e ESPIONAGE_URLS -e SES_FROM -e SES_TO -e SES_SUBJECT -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY puppeteer yarn start
         env:
           ESPIONAGE_URLS: ${{ secrets.ESPIONAGE_URLS }}
           SES_FROM: ${{ secrets.SES_FROM }}

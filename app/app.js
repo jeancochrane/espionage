@@ -15,13 +15,11 @@ const aws = require('aws-sdk');
   let urls = process.argv.slice(2)
   if (urls.length == 0) {
     if (!process.env.ESPIONAGE_URLS) {
-      console.warn(
+      throw new Error(
         'No URLs found. Pass URLs to the script in the format name::path.'
       )
-      await browser.close()
-      return
     } else {
-      urls = process.env.ESPIONAGE_URLS.split(' ')
+      urls = process.env.ESPIONAGE_URLS.split(',')
     }
   }
 
@@ -35,9 +33,7 @@ const aws = require('aws-sdk');
       html += `${name}: <img src="cid:${name}"/>\n\n`
       attachments.push({filename: `${name}.jpg`, path: `screenshots/${name}.jpg`, cid: name})
     } catch(error) {
-      console.log(error)
-      await browser.close()
-      return
+      throw error
     }
   }
 

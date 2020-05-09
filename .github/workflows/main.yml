@@ -12,4 +12,4 @@ jobs:
       - name: Build containers and run code
         run: docker-compose run --run puppeteer yarn start
         env:
-          ESPIONAGE_URLS: ${{ secrets.URLS }}
+          ESPIONAGE_URLS: ${{ secrets.ESPIONAGE_URLS }}

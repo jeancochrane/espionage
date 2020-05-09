@@ -36,3 +36,8 @@ yarn start example::https://example.com google::https://google.com
 # The same command, using docker-compose for local development
 docker-compose run --rm puppeteer yarn start example::https://example.com google::https://google.com
 ```
+
+If you'd like, you can also set the key::value pairs using the `ESPIONAGE_URLS`
+environment variable. The script will prefer positional arguments over the
+environment variable, and fall back to the environment variable if no arguments
+exist.

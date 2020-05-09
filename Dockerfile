@@ -8,3 +8,4 @@ COPY ./app/package.json /package.json
 RUN yarn install
 
 COPY ./app /app
+WORKDIR /app

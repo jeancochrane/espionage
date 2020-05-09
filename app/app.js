@@ -12,35 +12,42 @@ const aws = require('aws-sdk');
     })
   })
 
-  const urls = process.argv.slice(2)
-
+  let urls = process.argv.slice(2)
   if (urls.length == 0) {
-    console.warn(
-      'No URLs found. Pass URLs to the script in the format name::path.'
-    )
-  } else {
-    let html = ``
-    let attachments = []
-    for (const url of urls) {
-      const [name, path] = url.split('::')
-      try {
-        await page.goto(path)
-        await page.screenshot({path: `screenshots/${name}.jpg`, fullPage: true})
-        html += `${name}: <img src="cid:${name}"/>\n\n`
-        attachments.push({filename: `${name}.jpg`, path: `screenshots/${name}.jpg`, cid: name})
-      } catch(error) {
-        console.log(error)
-      }
+    if (!process.env.ESPIONAGE_URLS) {
+      console.warn(
+        'No URLs found. Pass URLs to the script in the format name::path.'
+      )
+      await browser.close()
+      return
+    } else {
+      urls = process.env.ESPIONAGE_URLS.split(' ')
     }
-
-    await transporter.sendMail({
-      from: process.env.SES_FROM,
-      to: process.env.SES_TO,
-      subject: process.env.SES_SUBJECT,
-      html,
-      attachments,
-    })
   }
+
+  let html = ``
+  let attachments = []
+  for (const url of urls) {
+    const [name, path] = url.split('::')
+    try {
+      await page.goto(path)
+      await page.screenshot({path: `screenshots/${name}.jpg`, fullPage: true})
+      html += `${name}: <img src="cid:${name}"/>\n\n`
+      attachments.push({filename: `${name}.jpg`, path: `screenshots/${name}.jpg`, cid: name})
+    } catch(error) {
+      console.log(error)
+      await browser.close()
+      return
+    }
+  }
+
+  await transporter.sendMail({
+    from: process.env.SES_FROM,
+    to: process.env.SES_TO,
+    subject: process.env.SES_SUBJECT,
+    html,
+    attachments,
+  })
 
   await browser.close()
 })()

@@ -1,0 +1,15 @@
+name: Spying
+
+on:
+  schedule:
+    - cron: '50 20 * * *'
+
+jobs:
+  spy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build containers and run code
+        run: docker-compose run --run puppeteer yarn start
+        env:
+          ESPIONAGE_URLS: ${{ secrets.URLS }}

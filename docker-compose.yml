@@ -1,8 +1,13 @@
 version: "2.3"
 
 services:
-  puppetteer:
-    image: buildkite/puppeteer
+  puppeteer:
+    image: espionage
+    container_name: espionage
+    build: .
     volumes:
       - ./app:/app
+      - $HOME/.aws:/root/.aws:ro
+    env_file:
+      - .env
     working_dir: /app

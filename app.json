@@ -1,0 +1,15 @@
+{
+  "name": "espionage",
+  "env": {
+    "SES_FROM": {
+      "required": true
+    },
+    "SES_TO": {
+      "required": true
+    },
+    "SES_SUBJECT": {
+      "required": true
+    }
+  },
+  "stack": "container"
+}

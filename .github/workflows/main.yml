@@ -13,3 +13,8 @@ jobs:
         run: docker-compose run --run puppeteer yarn start
         env:
           ESPIONAGE_URLS: ${{ secrets.ESPIONAGE_URLS }}
+          SES_FROM: ${{ secrets.SES_FROM }}
+          SES_TO: ${{ secrets.SES_TO }}
+          SES_SUBJECT: ${{ secrets.SES_SUBJECT }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

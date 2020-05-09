@@ -1,0 +1,9 @@
+{
+  "name": "espionage",
+  "description": "🔎Take screenshots of websites and email them to yourself.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  }
+}

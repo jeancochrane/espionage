@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# App-generated screenshots
+app/screenshots/*.jpg
